@@ -147,15 +147,56 @@ FROM pizza_runner.runner_orders
 
 --
 
+# A.Pizza Metrics
+
+## How many pizzas were ordered?
+
+````sql
+SELECT COUNT(pizza_id)
+FROM customer_orders_temp
+````
+![image](https://github.com/user-attachments/assets/2d8db975-f1b1-4736-ac15-e0aa157d616a)
+
+---
+## How many unique customer orders were made
+````sql
+SELECT COUNT(DISTINCT order_id)
+FROM customer_orders_temp
+```
+![image](https://github.com/user-attachments/assets/29df62f2-361a-43fe-94e0-d91453a67550)
+--
 
 ````sql
 ````
 --
+
 ````sql
 ````
 --
+
 ````sql
 ````
+--
+
+````sql
+````
+--
+
+````sql
+````
+--
+
+````sql
+````
+--
+
+````sql
+````
+--
+
+````sql
+````
+--
 
 
 
