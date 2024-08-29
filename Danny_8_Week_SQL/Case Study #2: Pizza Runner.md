@@ -162,16 +162,34 @@ FROM customer_orders_temp
 ````sql
 SELECT COUNT(DISTINCT order_id)
 FROM customer_orders_temp
-```
+````
 ![image](https://github.com/user-attachments/assets/29df62f2-361a-43fe-94e0-d91453a67550)
 --
-
+## How many successful orders were delivered by each runner?
 ````sql
+SELECT ro.runner_id,COUNT(ro.order_id) as orders
+FROM runner_orders_temp ro
+WHERE ro.cancellation NOT ILIKE'%cancellation%'
+GROUP BY ro.runner_id
 ````
+
+![image](https://github.com/user-attachments/assets/f3e11b23-8b52-4290-b81b-9bbb33b7868b)
+
 --
+## How many of each type of pizza was delivered?
+
 
 ````sql
+SELECT cc.pizza_id,count(*)
+FROM runner_orders_temp r
+INNER JOIN customer_orders cc
+ON r.order_id=cc.order_id
+WHERE cancellation NOT ILIKE '%cancellation%'
+GROUP BY cc.pizza_id
 ````
+
+![image](https://github.com/user-attachments/assets/102e2d9c-75b9-444d-9e7a-cae7a420d049)
+
 --
 
 ````sql
