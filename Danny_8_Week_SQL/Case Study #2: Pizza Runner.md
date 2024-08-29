@@ -35,6 +35,10 @@ I have executed the solutions using DB Fiddle using **Schema (PostgreSQL v13)**
 
 # Entity Relationship Diagram
 
+![image](https://github.com/user-attachments/assets/b0567118-0137-40e7-b4dc-7b90366c924b)
+
+https://dbdiagram.io/d/Pizza-Runner-5f3e085ccf48a141ff558487?utm_source=dbdiagram_embed&utm_medium=bottom_open
+
 # Data Cleaning and Transformation
 
 - From looking into the customer_orders table and the runner_orders table, you can observe that the exclusions and extras columns have 'null' values
