@@ -1,6 +1,6 @@
 ![image](https://github.com/user-attachments/assets/9085d6cd-ac70-4c40-84a1-615d24ab9076)# Introduction
 
-# Case Study 
+# Case Study #3 - Foodie-Fi
 <img src="https://user-images.githubusercontent.com/81607668/129742132-8e13c136-adf2-49c4-9866-dec6be0d30f0.png" width="500" height="520" alt="image">
 
 # Overview
