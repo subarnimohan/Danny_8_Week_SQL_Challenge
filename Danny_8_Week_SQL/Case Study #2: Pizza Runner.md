@@ -206,10 +206,27 @@ ORDER BY customer_id
 
 ![image](https://github.com/user-attachments/assets/741c1c23-fd4e-470f-9b21-2cb36b21b90c)
 
+## What was the maximum number of pizzas delivered in a single order?
 
 ````sql
+WITH ranks AS (
+SELECT r.order_id,count(cc.pizza_id) as pizzas,RANK() OVER(ORDER BY count(cc.pizza_id) DESC)
+FROM runner_orders_temp r
+INNER JOIN customer_orders_temp cc
+ON r.order_id=cc.order_id
+WHERE cancellation NOT LIKE '%Cancellation%'
+GROUP BY r.order_id
+ORDER BY pizzas DESC)
+
+SELECT order_id,pizzas
+FROM ranks
+where rank=1
 ````
+![image](https://github.com/user-attachments/assets/a8144955-d125-4e3e-be98-f36da28a1036)
+
+#### <b> The maximum number of pizzas delivered in a single order is 3
 --
+
 
 ````sql
 ````
