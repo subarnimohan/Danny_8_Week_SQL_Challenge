@@ -37,9 +37,10 @@ I have executed the solutions using DB Fiddle using **Schema (PostgreSQL v13)**
 
 # Data Cleaning and Transformation
 
-- From looking into the customer_orders table, you can observe that the exclusions and extras columns have 'null' values
+- From looking into the customer_orders table and the runner_orders table, you can observe that the exclusions and extras columns have 'null' values
 - The first step is to replace 'null' values in the columns with '' by creating a temporary table that we would be using in this exercise
 
+<b> Table to clean: customer_orders table </b>
 
 | order_id | customer_id | pizza_id | exclusions | extras | order_time               |
 | -------- | ----------- | -------- | ---------- | ------ | ------------------------ |
@@ -90,9 +91,63 @@ This is the temporary table that has been cleaned
 | 10       | 104         | 1        | 2, 6       | 1, 4   | 2020-01-11T18:34:49.000Z |
 
 ---
+<b> Table to clean: runner_orders </b>
+
+| order_id | runner_id | pickup_time         | distance | duration   | cancellation            |
+| -------- | --------- | ------------------- | -------- | ---------- | ----------------------- |
+| 1        | 1         | 2020-01-01 18:15:34 | 20km     | 32 minutes |                         |
+| 2        | 1         | 2020-01-01 19:10:54 | 20km     | 27 minutes |                         |
+| 3        | 1         | 2020-01-03 00:12:37 | 13.4km   | 20 mins    |                         |
+| 4        | 2         | 2020-01-04 13:53:03 | 23.4     | 40         |                         |
+| 5        | 3         | 2020-01-08 21:10:57 | 10       | 15         |                         |
+| 6        | 3         | null                | null     | null       | Restaurant Cancellation |
+| 7        | 2         | 2020-01-08 21:30:45 | 25km     | 25mins     | null                    |
+| 8        | 2         | 2020-01-10 00:15:02 | 23.4 km  | 15 minute  | null                    |
+| 9        | 2         | null                | null     | null       | Customer Cancellation   |
+| 10       | 1         | 2020-01-11 18:50:20 | 10km     | 10minutes  | null                    |
+
+---
+
 ````sql
+CREATE TEMP TABLE runner_orders_temp AS
+
+SELECT 
+order_id,runner_id,
+CASE WHEN pickup_time='null' then '' ELSE pickup_time end as pickup_time,
+
+CASE 
+WHEN distance='null' then ''
+WHEN distance ILIKE '%km' then trim('km' from distance)
+ELSE distance end as distance,
+
+CASE
+WHEN duration='null' then '' 
+WHEN duration ILIKE '%mins' then trim('mins' from duration)
+WHEN duration ILIKE '%minute' then trim('minute' from duration)
+WHEN duration ILIKE '%minutes' then trim('minutes' from duration)
+
+ELSE duration end as duration,
+CASE WHEN cancellation='null' OR cancellation IS NULL then '' else cancellation end as cancellation
+FROM pizza_runner.runner_orders
 ````
+<b> This is the temporary table that has been cleaned </b>
+
+| order_id | runner_id | pickup_time         | distance | duration | cancellation            |
+| -------- | --------- | ------------------- | -------- | -------- | ----------------------- |
+| 1        | 1         | 2020-01-01 18:15:34 | 20       | 32       |                         |
+| 2        | 1         | 2020-01-01 19:10:54 | 20       | 27       |                         |
+| 3        | 1         | 2020-01-03 00:12:37 | 13.4     | 20       |                         |
+| 4        | 2         | 2020-01-04 13:53:03 | 23.4     | 40       |                         |
+| 5        | 3         | 2020-01-08 21:10:57 | 10       | 15       |                         |
+| 6        | 3         |                     |          |          | Restaurant Cancellation |
+| 7        | 2         | 2020-01-08 21:30:45 | 25       | 25       |                         |
+| 8        | 2         | 2020-01-10 00:15:02 | 23.4     | 15       |                         |
+| 9        | 2         |                     |          |          | Customer Cancellation   |
+| 10       | 1         | 2020-01-11 18:50:20 | 10       | 10       |                         |
+
 --
+
+
 ````sql
 ````
 --
