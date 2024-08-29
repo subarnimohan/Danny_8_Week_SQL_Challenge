@@ -191,10 +191,21 @@ GROUP BY cc.pizza_id
 ![image](https://github.com/user-attachments/assets/102e2d9c-75b9-444d-9e7a-cae7a420d049)
 
 --
+## How many Vegetarian and Meatlovers were ordered by each customer?
 
 ````sql
+SELECT customer_id,pizza_name,count(*)
+	FROM pizza_names pn
+
+INNER JOIN customer_orders_temp cc
+	ON pn.pizza_id=cc.pizza_id
+GROUP BY customer_id,pizza_name
+ORDER BY customer_id
 ````
 --
+
+![image](https://github.com/user-attachments/assets/741c1c23-fd4e-470f-9b21-2cb36b21b90c)
+
 
 ````sql
 ````
