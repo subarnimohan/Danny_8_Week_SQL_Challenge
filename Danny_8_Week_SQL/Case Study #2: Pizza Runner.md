@@ -107,6 +107,7 @@ This is the temporary table that has been cleaned
 | 10       | 1         | 2020-01-11 18:50:20 | 10km     | 10minutes  | null                    |
 
 ---
+The respective datatypes for the columns are also required to be updated
 
 ````sql
 CREATE TEMP TABLE runner_orders_temp AS
@@ -227,8 +228,68 @@ where rank=1
 #### <b> The maximum number of pizzas delivered in a single order is 3
 --
 
+## For each customer, how many delivered pizzas had at least 1 change and how many had no changes?
+````sql
+
+SELECT cc.customer_id,
+	
+	sum(CASE WHEN cc.exclusions!='' OR cc.extras!='' then 1 else 0 end) as at_least_one,
+	sum(CASE WHEN cc.exclusions='' AND cc.extras='' then 1 else 0 end) as no_change
+FROM runner_orders_temp r
+	
+	INNER JOIN customer_orders_temp cc
+	
+ON r.order_id=cc.order_id
+WHERE cancellation NOT LIKE '%Cancellation%'
+GROUP BY cc.customer_id
+ORDER BY cc.customer_id
+
+````
+--
+![image](https://github.com/user-attachments/assets/3557538a-38db-4cd3-81aa-25e6c073832e)
+
+## How many pizzas were delivered that had both exclusions and extras?
 
 ````sql
+SELECT 
+	
+SUM(CASE WHEN cc.exclusions!='' AND cc.extras!='' then 1 else 0 end) as at_least_one
+FROM runner_orders_temp r
+	
+INNER JOIN customer_orders_temp cc
+	
+ON r.order_id=cc.order_id
+WHERE cancellation NOT LIKE '%Cancellation%'
+````
+
+![image](https://github.com/user-attachments/assets/038af6b2-ec7b-4776-9f46-35e7d2aeb516)
+
+## What was the total volume of pizzas ordered for each hour of the day?
+````sql
+SELECT EXTRACT(hour from order_time),count(order_id)
+FROM customer_orders_temp cc
+GROUP BY EXTRACT(hour from order_time)
+
+````
+![image](https://github.com/user-attachments/assets/38a6a11e-8fa6-4737-bfe6-11e9ead78c5c)
+--
+## What was the volume of orders for each day of the week?
+
+````sql
+SELECT TO_CHAR(cc.order_time,'day'),count(cc.order_id)
+
+FROM customer_orders_temp cc
+GROUP BY TO_CHAR(cc.order_time,'day')
+````
+![image](https://github.com/user-attachments/assets/710a4fb0-dcf0-4723-bc47-89489bdec344)
+
+--
+# B Runner and Customer Experience
+
+## How many runners signed up for each 1 week period? (i.e. week starts 2021-01-01)
+
+````sql
+
 ````
 --
 
