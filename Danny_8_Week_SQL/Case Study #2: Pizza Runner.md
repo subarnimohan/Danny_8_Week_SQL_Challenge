@@ -284,26 +284,7 @@ GROUP BY TO_CHAR(cc.order_time,'day')
 ![image](https://github.com/user-attachments/assets/710a4fb0-dcf0-4723-bc47-89489bdec344)
 
 --
-# B Runner and Customer Experience
 
-## How many runners signed up for each 1 week period? (i.e. week starts 2021-01-01)
-
-````sql
-
-````
---
-
-````sql
-````
---
-
-````sql
-````
---
-
-````sql
-````
---
 
 
 
