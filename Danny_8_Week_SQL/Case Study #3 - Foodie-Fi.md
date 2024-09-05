@@ -30,40 +30,54 @@ This case study is split into an initial data understanding question before divi
 
 ## Data Analysis
 
+## 1. How many customers has Foodie-Fi ever had?
 ```sql
+SELECT COUNT(DISTINCT (customer_id))
+FROM subscriptions
 ```
---
+![image](https://github.com/user-attachments/assets/9f714216-19a1-441e-a98e-0a7069ec4b6e)
 
-
-```sql
-```
-
-
-```sql
-```
-
+---
 
 ```sql
 ```
+---
 
 ```sql
 ```
+---
+
 
 ```sql
 ```
-
-```sql
-```
+---
 
 ```sql
 ```
 
 ```sql
 ```
+---
 
 ```sql
 ```
+---
 
 ```sql
 ```
+---
+
+
+```sql
+```
+---
+
+
+```sql
+```
+---
+
+```sql
+```
+---
 
