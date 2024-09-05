@@ -16,10 +16,54 @@ Danny finds a few smart friends to launch his new startup Foodie-Fi in 2020 and 
 Danny created Foodie-Fi with a data driven mindset and wanted to ensure all future investment decisions and new features were decided using data. This case study focuses on using subscription style digital data to answer important business questions.
 
 # Problem Statement
-
+<add text>
+  
 # Information
 
 I have executed the solutions using DB Fiddle using **Schema (PostgreSQL v13)** 
 
 # Entity Relationship Diagram
+<add diagram>
+# Case Study
+
+This case study is split into an initial data understanding question before diving straight into data analysis questions before finishing with 1 single extension challenge
+
+## Data Analysis
+
+```sql
+```
+--
+
+
+```sql
+```
+
+
+```sql
+```
+
+
+```sql
+```
+
+```sql
+```
+
+```sql
+```
+
+```sql
+```
+
+```sql
+```
+
+```sql
+```
+
+```sql
+```
+
+```sql
+```
 
