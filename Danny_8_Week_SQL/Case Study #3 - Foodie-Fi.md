@@ -36,6 +36,7 @@ SELECT COUNT(DISTINCT (customer_id))
 FROM subscriptions
 ```
 ![image](https://github.com/user-attachments/assets/9f714216-19a1-441e-a98e-0a7069ec4b6e)
+
 ---
 
 ## 2. What is the monthly distribution of trial plan start_date values for our dataset - use the start of the month as the group by value
@@ -97,7 +98,6 @@ SELECT COUNT(CASE WHEN plan_name='churn' and ranks=2 then 'churned right after' 
 FROM c
 ```
 ![image](https://github.com/user-attachments/assets/27b6c37a-6a07-431b-a2bd-523094cb0707)
-
 ---
 ## 6. What is the number and percentage of customer plans after their initial free trial?
 ```sql
@@ -111,32 +111,82 @@ FROM tt
 WHERE plan_new IS NOT NULL
 GROUP BY plan_new
 ```
-
 ![image](https://github.com/user-attachments/assets/d0a0984f-0a5e-49b3-be10-ef0287040116)
-
-
-
-
+---
+## 7. What is the customer count and percentage breakdown of all 5 plan_name values at 2020-12-31?
 
 ```sql
+
+SELECT plan_id,COUNT(customer_id),
+	ROUND(100*COUNT(customer_id)::decimal/(SELECT count(distinct customer_id) FROM subscriptions),1) as percent_value
+
+
+	FROM 
+(SELECT customer_id,plan_id,start_date,
+	RANK() OVER(PARTITION BY customer_id ORDER BY start_date DESC) as ranks
+FROM subscriptions
+WHERE start_date<='2020-12-31') tt
+WHERE ranks=1
+GROUP BY plan_id
 ```
+![image](https://github.com/user-attachments/assets/7383f2c6-1243-4fdd-b50d-eaf96eb70ba9)
 ---
+![image](https://github.com/user-attachments/assets/1bea7075-74e4-4545-871e-7368cc7ea219)
+
+## 8. How many customers have upgraded to an annual plan in 2020?
 
 ```sql
+SELECT COUNT(DISTINCT customer_id)
+FROM subscriptions s
+INNER JOIN plans pp
+ON s.plan_id=pp.plan_id
+WHERE plan_name='pro annual' AND EXTRACT(YEAR FROM start_date)=2020
 ```
----
+![image](https://github.com/user-attachments/assets/09c45364-644f-4bec-bb66-8dfb1aa31c7e)
 
+---
+## 9. How many days on average does it take for a customer to an annual plan from the day they join Foodie-Fi?
 
 ```sql
-```
----
+WITH k as(
+SELECT customer_id,plan_id,start_day, LEAD(start_day,1) OVER(PARTITION BY customer_id ORDER BY start_day)
+	as annual_day
 
+	FROM (
+SELECT customer_id,plan_id,start_date,
+	CASE 
+	WHEN plan_id=0 or plan_id=3 then start_date
+	else null end as start_day
+	
+FROM subscriptions
+WHERE plan_id IN (0,3))kk)
+
+SELECT ROUND(AVG(annual_day-start_day))
+FROM k 
+where annual_day is not null
+```
+Ans: 105
+![image](https://github.com/user-attachments/assets/44f5acab-add3-429a-b7b4-a4f70dfb5b35)
+---
+## 11. How many customers downgraded from a pro monthly to a basic monthly plan in 2020?
 
 ```sql
+WITH t as (
+SELECT customer_id,plan_id,start_date as basic_monthly,
+	LEAD(monthly_start_dates) OVER(PARTITION BY customer_id ORDER BY monthly_start_dates) as pro_monthly
+
+	FROM (
+SELECT customer_id,plan_id,start_date,
+	CASE WHEN plan_id=1 or plan_id=2 then start_date else null end as monthly_start_dates
+FROM subscriptions
+WHERE plan_id IN (1,2)
+ORDER BY customer_id) kk)
+	
+SELECT customer_id
+FROM t
+where pro_monthly IS NOT NULL and basic_monthly-pro_monthly>=0
 ```
+Ans: No values shown in the output indicating that no customers downgraded from pro monthly to basic monthly plan
 ---
 
-```sql
-```
----
 
