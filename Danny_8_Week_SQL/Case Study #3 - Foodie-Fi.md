@@ -111,6 +111,9 @@ FROM tt
 WHERE plan_new IS NOT NULL
 GROUP BY plan_new
 ```
+![image](https://github.com/user-attachments/assets/647f587c-22db-4848-9e64-e56fc9ff5678)
+
+
 ---
 
 ```sql
