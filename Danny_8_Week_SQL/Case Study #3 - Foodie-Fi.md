@@ -11,17 +11,18 @@ Subscription based businesses are super popular and Danny realised that there wa
 
 Danny finds a few smart friends to launch his new startup Foodie-Fi in 2020 and started selling monthly and annual subscriptions, giving their customers unlimited on-demand access to exclusive food videos from around the world!
 
-Danny created Foodie-Fi with a data driven mindset and wanted to ensure all future investment decisions and new features were decided using data. This case study focuses on using subscription style digital data to answer important business questions.
+Danny created Foodie-Fi with a data driven mindset and wanted to ensure all future investment decisions and new features were decided using data. 
 
 # Problem Statement
-<add text>
+This case study focuses on using subscription style digital data to answer important business questions.
   
 # Information
 
 I have executed the solutions using DB Fiddle using **Schema (PostgreSQL v13)** 
 
 # Entity Relationship Diagram
-<add diagram>
+![image](https://github.com/user-attachments/assets/ec3957e3-45a8-41b2-878d-e123c3d57587)
+
 # Case Study
 
 This case study is split into an initial data understanding question before diving straight into data analysis questions before finishing with 1 single extension challenge
