@@ -99,7 +99,17 @@ FROM c
 ![image](https://github.com/user-attachments/assets/27b6c37a-6a07-431b-a2bd-523094cb0707)
 
 ---
+## 6. What is the number and percentage of customer plans after their initial free trial?
 ```sql
+WITH tt as (SELECT plan_id,customer_id,start_date, LEAD(plan_id,1) OVER(PARTITION BY customer_id ORDER BY plan_id) as plan_new	
+FROM subscriptions ss)
+
+SELECT plan_new,
+	COUNT(*),
+	ROUND(100*COUNT(customer_id)::DECIMAL/(SELECT COUNT(DISTINCT customer_id) FROM subscriptions),1)
+FROM tt
+WHERE plan_new IS NOT NULL
+GROUP BY plan_new
 ```
 ---
 
