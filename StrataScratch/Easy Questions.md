@@ -17,9 +17,8 @@ select
 lead(sal,1) OVER (ORDER BY sal)-sal
 from tt
 LIMIT 1
-
 ```
-![image](https://github.com/user-attachments/assets/9f714216-19a1-441e-a98e-0a7069ec4b6e)
+---
 
 
 
