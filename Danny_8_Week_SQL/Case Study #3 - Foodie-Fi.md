@@ -131,8 +131,6 @@ GROUP BY plan_id
 ```
 ![image](https://github.com/user-attachments/assets/7383f2c6-1243-4fdd-b50d-eaf96eb70ba9)
 ---
-![image](https://github.com/user-attachments/assets/1bea7075-74e4-4545-871e-7368cc7ea219)
-
 ## 8. How many customers have upgraded to an annual plan in 2020?
 
 ```sql
@@ -143,7 +141,6 @@ ON s.plan_id=pp.plan_id
 WHERE plan_name='pro annual' AND EXTRACT(YEAR FROM start_date)=2020
 ```
 ![image](https://github.com/user-attachments/assets/09c45364-644f-4bec-bb66-8dfb1aa31c7e)
-
 ---
 ## 9. How many days on average does it take for a customer to an annual plan from the day they join Foodie-Fi?
 
@@ -165,8 +162,7 @@ SELECT ROUND(AVG(annual_day-start_day))
 FROM k 
 where annual_day is not null
 ```
-Ans: 105
-![image](https://github.com/user-attachments/assets/44f5acab-add3-429a-b7b4-a4f70dfb5b35)
+### Ans: 105
 ---
 ## 11. How many customers downgraded from a pro monthly to a basic monthly plan in 2020?
 
@@ -186,7 +182,7 @@ SELECT customer_id
 FROM t
 where pro_monthly IS NOT NULL and basic_monthly-pro_monthly>=0
 ```
-Ans: No values shown in the output indicating that no customers downgraded from pro monthly to basic monthly plan
+### Ans: No values shown in the output indicating that no customers downgraded from pro monthly to basic monthly plan
 ---
 
 
