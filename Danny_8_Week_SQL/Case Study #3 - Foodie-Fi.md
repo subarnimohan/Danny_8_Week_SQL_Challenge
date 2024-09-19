@@ -111,8 +111,8 @@ FROM tt
 WHERE plan_new IS NOT NULL
 GROUP BY plan_new
 ```
-![image](https://github.com/user-attachments/assets/f8ca9aa1-32d9-4941-8f83-630ec33509ae)**
----
+
+![image](https://github.com/user-attachments/assets/d0a0984f-0a5e-49b3-be10-ef0287040116)
 
 
 
